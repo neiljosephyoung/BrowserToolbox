@@ -1,0 +1,18 @@
+.contact-row {
+    margin-top: 20px;
+    padding: 20px;
+}
+
+.contact-title {
+    margin: 0;
+    font-size: 36px;
+    text-align: center;
+}
+h1 {
+    color: #fff;
+    text-decoration: underline;
+}
+Form{
+    color: #fff;
+    text-decoration: underline;
+}

@@ -1,0 +1,13 @@
+.urlInput  {
+    background-color: #181a1b;
+}
+ .brSmall {
+    display: block;
+    margin: 5px 0;
+ }
+ .customCard{
+    background: #181a1b ;
+}
+.responseData :focus{
+    background-color: #181a1b;
+}

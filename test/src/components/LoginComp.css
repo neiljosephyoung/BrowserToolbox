@@ -1,0 +1,13 @@
+.form-control{
+    background-color: #181a1b;
+}
+input[type=pass]:active, input[type=pass]:focus {
+    background-color: #181a1b;
+  }
+  input[type=text]:active, input[type=text]:focus {
+    background-color: #181a1b;
+  }
+ .brSmall {
+    display: block;
+    margin: 5px 0;
+ }

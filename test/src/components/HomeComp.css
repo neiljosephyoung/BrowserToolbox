@@ -1,0 +1,21 @@
+.home-row {
+    margin-top: 20px;
+    background-color: #404355;
+    color: #fff;
+    padding: 20px;
+}
+
+.home-title {
+    margin: 0;
+    font-size: 36px;
+}
+
+.home-content {
+    margin-top: 20px;
+    font-size: 18px;
+    line-height: 1.5;
+}
+.home-link {
+    color: #fff;
+    text-decoration: underline;
+}
