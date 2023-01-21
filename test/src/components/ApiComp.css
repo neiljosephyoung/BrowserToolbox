@@ -11,3 +11,13 @@
 .responseData :focus{
     background-color: #181a1b;
 }
+.customCard input, .customCard textarea {
+    color: white;
+  }
+  .customCard input:focus, .customCard textarea:focus {
+    color: white;
+    background-color: #181a1b;
+  }
+  p{
+    color: white;
+  }

@@ -4,43 +4,81 @@ import './ApiComp.css'
 
 
 function ApiComp(props){ 
-    const [requestMethod, setRequestMethod] = useState('Select Request Type');
-    const handleSelect = (eventKey) => {
-        setRequestMethod(eventKey);
-      };
+  
+const [requestMethod, setRequestMethod] = useState('Select Request Type');
+const handleSelect = (eventKey) => {
+    setRequestMethod(eventKey);
+  };
 
-    const [url, setUrl] = useState('');
-   
-    // const [text, setText] = useState('');
-    // const handleCopy = () => {
-    //     navigator.clipboard.writeText(text);
-    // };
-    // const handleDelete = () => {
-    //     setText('');
-    // };
+const [url, setUrl] = useState('');
 
-const [show, setShow] = useState(false);
-const handleClose = () => setShow(false);
-const handleShow = () => setShow(true);
+const [showModal, setShowModal] = useState(false);
+const [modalText, setModalText] = useState('');
 
 const [bearerToken, setBearer] = useState('');
-const [requestBody, setBody] = useState('');
-const [savedInputs, setSavedInputs] = useState([]);
+const [requestBody] = useState('');
 
-const handleSave = () => {
-  setSavedInputs([...savedInputs, bearerToken, requestBody]);
+const handleClearResponse = () => {
+  setResponseData('');
+  setModalText('Response cleared');
+  setShowModal(true);
 };
-//do api call and log the response to textarea
+
+const handleCopyResponse = () => {
+  navigator.clipboard.writeText(responseData);
+  setModalText('Response copied to clipboard');
+  setShowModal(true);
+};
+
 const [responseData, setResponseData] = useState('');
+
+//do api call and log the response to textarea
 const handleNetworkCall = async () => {
+  if (!url) {
+    alert("Please enter a URL");
+    return;
+  }
+  let options = {};
+  switch(requestMethod) {
+    case 'Get':
+      options = {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${bearerToken}`
+        }
+      };
+      setModalText('Sending Request to Server');
+      setShowModal(true);
+      break;
+    case 'Post':
+    case 'Put':
+      options = {
+        method: requestMethod,
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${bearerToken}`
+        },
+        body: requestBody
+      };
+      setModalText('Sending Request to Server');
+      setShowModal(true);
+      break;
+    default:
+      setModalText('Please select a request method');
+      setShowModal(true);
+      return;
+  }
   try {
-    const response = await fetch('https://my-api.com/endpoint');
+    const response = await fetch(url, options);
     const data = await response.json();
     setResponseData(JSON.stringify(data, null, 2));
+     //once the response is read close the popup modal 
+    setShowModal(false);
   } catch (error) {
     console.error(error);
     setResponseData('Error: failed to fetch data');
   }
+ 
 };
 
   return (
@@ -112,25 +150,34 @@ const handleNetworkCall = async () => {
                 />
                 </InputGroup>
                <br></br> 
-                    <Button variant="success" size="lg" onClick={handleSave}>
+                    <Button variant="success" size="lg" onClick={handleNetworkCall}>
                     Send Request
                     </Button>
                     &nbsp;
-                    <Button variant="warning" size="lg" >
+                    <Button variant="warning" size="lg" onClick={handleCopyResponse}>
                     Copy Response to Clipboard
                     </Button>
                     &nbsp;
-                    <Button variant="danger" size="lg"  height="auto" width="auto">
+                    <Button variant="danger" size="lg"  height="auto" width="auto"
+                    onClick={handleClearResponse}>
                     Clear Response
                     </Button>
                     &nbsp;
                     {/* <Button variant="primary" size="lg" onClick={handleShow}>
                       Settings
                     </Button> */}
-                    <Modal show={show} onHide={handleClose}>
-                <Modal.Header closeButton>
-                  <Modal.Title>Settings</Modal.Title>
-                </Modal.Header>
+                    <Modal show={showModal} onHide={() => setShowModal(false)}>
+                      <Modal.Header closeButton>
+                        <Modal.Title>Notification</Modal.Title>
+                      </Modal.Header>
+                      <Modal.Body>{modalText}</Modal.Body>
+                      <Modal.Footer>
+                        <Button variant="secondary" onClick={() => setShowModal(false)}>
+                          Close
+                        </Button>
+                      </Modal.Footer>
+                    </Modal>
+
                 <Modal.Body>
                   <Form onSubmit={handleNetworkCall}>
                     <Form.Group>
@@ -140,7 +187,6 @@ const handleNetworkCall = async () => {
                     </Form.Group>
                     </Form>
                     </Modal.Body>
-                    </Modal>
                     <p>Saved request method: {requestMethod}</p>
                     <p>Saved url: {url}</p>
                     <p>Saved bearer token: {bearerToken}</p>
