@@ -5,6 +5,10 @@ import './ApiComp.css'
 
 function ApiComp(props){ 
   
+function timeout(delay) {
+    return new Promise( res => setTimeout(res, delay) );
+}
+
 const [requestMethod, setRequestMethod] = useState('Select Request Type');
 const handleSelect = (eventKey) => {
     setRequestMethod(eventKey);
@@ -77,6 +81,9 @@ const handleNetworkCall = async () => {
   } catch (error) {
     console.error(error);
     setResponseData('Error: failed to fetch data');
+    //do delay for 1s so popup shows and then gets dismissed instead of flashing on screen.
+    await timeout(1000); 
+    setShowModal(false);
   }
  
 };
@@ -181,9 +188,6 @@ const handleNetworkCall = async () => {
                 <Modal.Body>
                   <Form onSubmit={handleNetworkCall}>
                     <Form.Group>
-                      <Form.Label>Bearer Token</Form.Label>
-                       <div className="d-grid gap-2 align-items-right">
-                       </div>
                     </Form.Group>
                     </Form>
                     </Modal.Body>

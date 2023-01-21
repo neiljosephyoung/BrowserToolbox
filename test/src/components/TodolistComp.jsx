@@ -8,11 +8,20 @@ const TodolistComp = () => {
   const [inputValue, setInputValue] = useState('');
   // state to hold whether the modal is open or closed
   const [showModal, setShowModal] = useState(false);
+  const [modalText, setModalText] = useState('Are you sure you want to delete this item');
+
+  const [showInfoModal, setShowInfoModal] = useState(false);
+  const [modalInfoText, setModalInfoText] = useState('Are you sure you want to delete this item');
   // state to hold the index of the todo to be removed
   const [removeIndex, setRemoveIndex] = useState(null);
 
   // function to handle adding a new todo
   const handleAddTodo = () => {
+    if(!inputValue){
+      setModalInfoText("Please enter some text for the todo title");
+      setShowInfoModal(true)
+      return;
+    }
     // add the new todo to the list of todos
     setTodos([...todos, inputValue]);
     // clear the input field
@@ -38,8 +47,6 @@ const TodolistComp = () => {
   };
 
   return (
-
-   
     <Container>
       <Row>
         <Col >
@@ -68,9 +75,10 @@ const TodolistComp = () => {
     
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
-          <Modal.Title>Confirm removal</Modal.Title>
+          <Modal.Title>Info</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Are you sure you want to delete this item?</Modal.Body>
+        <Modal.Body>{modalText}</Modal.Body>
+        {/* <Modal.Body>Are you sure you want to delete this item?</Modal.Body> */}
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Cancel
@@ -78,6 +86,20 @@ const TodolistComp = () => {
           <Button variant="danger" onClick={handleConfirmRemove}>
             Remove
           </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal show={showInfoModal} onHide={() => setShowModal(false)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Info</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>{modalInfoText}</Modal.Body>
+        {/* <Modal.Body>Are you sure you want to delete this item?</Modal.Body> */}
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowInfoModal(false)}>
+            Cancel
+          </Button>
+
         </Modal.Footer>
       </Modal>
     </Container>
