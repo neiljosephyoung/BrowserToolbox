@@ -2,17 +2,13 @@ import React, { useState } from 'react';
 import { Container, Row, Col, Form, ListGroup, Button, Modal, Card  } from 'react-bootstrap';
 
 const TodolistComp = () => {
-  // state to hold the list of todos
+  //callback action functions set defaults for vars
   const [todos, setTodos] = useState([]);
-  // state to hold the value of the input field
   const [inputValue, setInputValue] = useState('');
-  // state to hold whether the modal is open or closed
   const [showModal, setShowModal] = useState(false);
   const [modalText, setModalText] = useState('Are you sure you want to delete this item');
-
   const [showInfoModal, setShowInfoModal] = useState(false);
   const [modalInfoText, setModalInfoText] = useState('Are you sure you want to delete this item');
-  // state to hold the index of the todo to be removed
   const [removeIndex, setRemoveIndex] = useState(null);
 
   // function to handle adding a new todo
@@ -72,13 +68,12 @@ const TodolistComp = () => {
           </Card>
         </Col>
       </Row>
-    
+
       <Modal show={showModal} onHide={() => setShowModal(false)}>
         <Modal.Header closeButton>
           <Modal.Title>Info</Modal.Title>
         </Modal.Header>
         <Modal.Body>{modalText}</Modal.Body>
-        {/* <Modal.Body>Are you sure you want to delete this item?</Modal.Body> */}
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowModal(false)}>
             Cancel
@@ -94,7 +89,6 @@ const TodolistComp = () => {
           <Modal.Title>Info</Modal.Title>
         </Modal.Header>
         <Modal.Body>{modalInfoText}</Modal.Body>
-        {/* <Modal.Body>Are you sure you want to delete this item?</Modal.Body> */}
         <Modal.Footer>
           <Button variant="secondary" onClick={() => setShowInfoModal(false)}>
             Cancel

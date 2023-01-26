@@ -9,7 +9,7 @@ const ContactComp = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        // send the contact request using the state values
+        // TODO send the contact request using the state values
         console.log(name, email, message);
     };
 

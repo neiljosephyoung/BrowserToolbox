@@ -3,24 +3,24 @@ import { Form, InputGroup, DropdownButton, Dropdown, Button, Container, Row, Col
 import './ApiComp.css'
 
 
-function ApiComp(props){ 
-  
+function ApiComp(){ 
+
+//callback action functions set defaults for vars
+const [requestMethod, setRequestMethod] = useState('Select Request Type');
+const [url, setUrl] = useState('');
+const [showModal, setShowModal] = useState(false);
+const [modalText, setModalText] = useState('');
+const [bearerToken, setBearer] = useState('');
+const [requestBody] = useState('');
+const [responseData, setResponseData] = useState('');
+
 function timeout(delay) {
     return new Promise( res => setTimeout(res, delay) );
 }
 
-const [requestMethod, setRequestMethod] = useState('Select Request Type');
 const handleSelect = (eventKey) => {
     setRequestMethod(eventKey);
-  };
-
-const [url, setUrl] = useState('');
-
-const [showModal, setShowModal] = useState(false);
-const [modalText, setModalText] = useState('');
-
-const [bearerToken, setBearer] = useState('');
-const [requestBody] = useState('');
+};
 
 const handleClearResponse = () => {
   setResponseData('');
@@ -34,7 +34,7 @@ const handleCopyResponse = () => {
   setShowModal(true);
 };
 
-const [responseData, setResponseData] = useState('');
+
 
 //do api call and log the response to textarea
 const handleNetworkCall = async () => {
@@ -85,13 +85,10 @@ const handleNetworkCall = async () => {
     await timeout(1000); 
     setShowModal(false);
   }
- 
 };
-
   return (
   <div>
    <Container>
-      
           <Row>
               <Col xs={12} md={12}>
                   <Card className='customCard'>
@@ -185,17 +182,18 @@ const handleNetworkCall = async () => {
                       </Modal.Footer>
                     </Modal>
 
-                <Modal.Body>
-                  <Form onSubmit={handleNetworkCall}>
-                    <Form.Group>
-                    </Form.Group>
-                    </Form>
+                    <Modal.Body>
+                      <Form onSubmit={handleNetworkCall}>
+                        <Form.Group>
+                        </Form.Group>
+                      </Form>
                     </Modal.Body>
-                    <p>Saved request method: {requestMethod}</p>
-                    <p>Saved url: {url}</p>
-                    <p>Saved bearer token: {bearerToken}</p>
-                    <p>Saved response body: {responseData}</p>
-                    </Card.Body>
+
+                      <p>Saved request method: {requestMethod}</p>
+                      <p>Saved url: {url}</p>
+                      <p>Saved bearer token: {bearerToken}</p>
+                      <p>Saved response body: {responseData}</p>
+                  </Card.Body>
                 </Card>
             </Col>
         </Row>
