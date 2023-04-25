@@ -7,6 +7,7 @@ import DashboardComp from './components/DashboardComp';
 import ApiComp from './components/ApiComp';
 import HomeComp from './components/HomeComp';
 import TodolistComp from './components/TodolistComp';
+import TextEditor from './components/TextEditor';
 
 import { Route, BrowserRouter,Routes  } from "react-router-dom";
 import ContactComp from './components/ContactComp';
@@ -23,10 +24,9 @@ function App() {
           <Route path='/Home' element={<HomeComp/>} />
           <Route path='/Contact' element={<ContactComp/>} />
           <Route path='/TodolistComp' element={<TodolistComp/>} />
+          <Route path='/TextEditor' element={<TextEditor />} />
       </Routes>
-      
     </BrowserRouter>
-    
   );
 }
 

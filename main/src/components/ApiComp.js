@@ -4,14 +4,13 @@ import './ApiComp.css'
 
 
 function ApiComp(){ 
-
 //callback action functions set defaults for vars
 const [requestMethod, setRequestMethod] = useState('Select Request Type');
 const [url, setUrl] = useState('');
 const [showModal, setShowModal] = useState(false);
 const [modalText, setModalText] = useState('');
 const [bearerToken, setBearer] = useState('');
-const [requestBody] = useState('');
+const [requestBody, setRequestBody] = useState('');
 const [responseData, setResponseData] = useState('');
 
 function timeout(delay) {
@@ -33,8 +32,6 @@ const handleCopyResponse = () => {
   setModalText('Response copied to clipboard');
   setShowModal(true);
 };
-
-
 
 //do api call and log the response to textarea
 const handleNetworkCall = async () => {
@@ -130,7 +127,8 @@ const handleNetworkCall = async () => {
                     as="textarea"
                     rows="15"
                     placeholder="Request to Send"
-                    
+                    value={requestBody}
+                    onChange={(event) => setRequestBody(event.target.value)}
                     style={{
                         backgroundColor: '#181a1b',
                         ':focus': {

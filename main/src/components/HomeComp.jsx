@@ -3,7 +3,9 @@ import { Link } from 'react-router-dom';
 import { Container, Row,Col  } from 'react-bootstrap'
 import './HomeComp.css';
 
+
 function HomeComp(){
+
   return (
     <Container>
       <Row className="home-row">
@@ -20,6 +22,7 @@ function HomeComp(){
           
               You can find the source code <a href="https://www.github.com/neiljosephyoung/">Here</a>
           </p>
+
         </Col>
       </Row>
     </Container>

@@ -41,9 +41,10 @@ function LoginComp(props){
                     Functionality to be added
                   </p>
                   <hr />
-                  <Button variant="outline-primary" size="sm" 
-                  onClick={() => setShow(false)}
-                  >Close</Button>
+                    <Button variant="outline-primary" size="sm" 
+                    onClick={() => setShow(false)}
+                    >Close  
+                    </Button>
                 </Alert>
              </MDBCardBody>
            </MDBCard>
